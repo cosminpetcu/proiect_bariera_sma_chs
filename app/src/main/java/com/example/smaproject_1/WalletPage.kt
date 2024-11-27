@@ -12,27 +12,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HomePage(
-    onNavigateToMapPage: () -> Unit,
+fun WalletPage (
+    onNavigateBack: () -> Unit,
     onNavigateToSwitchPage: () -> Unit,
-    onNavigateToWalletPage: () -> Unit
-) { // Adăugat parametrul pentru navigare
+    onNavigateToMapPage: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp),
-        verticalArrangement = Arrangement.Top, // Modificăm pentru a nu folosi SpaceBetween
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Titlu sus
         Text(
-            text = "AccessHub",
+            text = "Wallet",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 16.dp)
         )
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,41 +38,26 @@ fun HomePage(
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        // Buton jos
-        Button(
-            onClick = { /* Aici poți adăuga acțiunea pentru adăugarea unui punct de acces */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
-        ) {
-            Text("Add New Access Point", color = Color.White)
-        }
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        // Row pentru butoanele icon
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             // Buton Home - Gri
             IconButton(
-                onClick = { /* Rămâne pe pagina curentă */ },
+                onClick = { onNavigateBack() },
                 modifier = Modifier.size(50.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.home), // Imaginea pentru Home
                     contentDescription = "Home",
-                    tint = Color.Black,
+                    tint = Color.LightGray,
                     modifier = Modifier.fillMaxSize()
                 )
             }
 
             // Buton Map
             IconButton(
-                onClick = { onNavigateToMapPage() }, // Navighează la MapPage
+                onClick = {onNavigateToMapPage() },
                 modifier = Modifier.size(50.dp)
             ) {
                 Icon(
@@ -87,7 +70,7 @@ fun HomePage(
 
             // Buton Switch
             IconButton(
-                onClick = { onNavigateToSwitchPage() },
+                onClick = {onNavigateToSwitchPage() },
                 modifier = Modifier.size(50.dp)
             ) {
                 Icon(
@@ -100,17 +83,16 @@ fun HomePage(
 
             // Buton Wallet
             IconButton(
-                onClick = { onNavigateToWalletPage()},
+                onClick = {},
                 modifier = Modifier.size(50.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.wallet), // Imaginea pentru Wallet
                     contentDescription = "Wallet",
-                    tint = Color.LightGray, // Deschis pentru celelalte butoane
+                    tint = Color.Black, // Deschis pentru celelalte butoane
                     modifier = Modifier.fillMaxSize()
                 )
             }
         }
     }
 }
-

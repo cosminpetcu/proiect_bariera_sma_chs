@@ -10,15 +10,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            // Utilizarea stării în cadrul setContent
-            var showAccessPointScreen by remember { mutableStateOf(false) }
+            var currentScreen by remember { mutableStateOf("signUp") }
 
-            if (showAccessPointScreen) {
-                // Afișează AccessPointScreen
-                HomePage()
-            } else {
-                // Afișează AccessHubScreen
-                SignUpPage(onNavigateToHomePage = { showAccessPointScreen = true })
+            when (currentScreen) {
+                "signUp" -> SignUpPage(onNavigateToHomePage = { currentScreen = "home" })
+                "home" -> HomePage(
+                    onNavigateToMapPage = { currentScreen = "map" },
+                    onNavigateToSwitchPage = { currentScreen = "switch" },
+                    onNavigateToWalletPage = { currentScreen = "wallet" }
+                )
+                "map" -> MapPage(
+                    onNavigateBack = { currentScreen = "home" },
+                    onNavigateToSwitchPage = { currentScreen = "switch" },
+                    onNavigateToWalletPage = { currentScreen = "wallet" }
+                )
+                "switch" -> SwitchPage(
+                    onNavigateBack = { currentScreen = "home" },
+                    onNavigateToMapPage = { currentScreen = "map" },
+                    onNavigateToWalletPage = { currentScreen = "wallet" }
+                )
+                "wallet" -> WalletPage(
+                    onNavigateBack = { currentScreen = "home" },
+                    onNavigateToMapPage = { currentScreen = "map" },
+                    onNavigateToSwitchPage = { currentScreen = "switch" }
+                )
             }
         }
     }
