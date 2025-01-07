@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 fun SwitchPage(
     onNavigateToMapPage: () -> Unit,
     onNavigateBack: () -> Unit,
-    onNavigateToWalletPage: () -> Unit
+    onNavigateToSettingsPage: () -> Unit
     ){
     Column(
         modifier = Modifier
@@ -85,14 +85,14 @@ fun SwitchPage(
                 )
             }
 
-            // Buton Wallet
+            // Buton Settings
             IconButton(
-                onClick = {onNavigateToWalletPage()},
+                onClick = { onNavigateToSettingsPage() },
                 modifier = Modifier.size(50.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.wallet), // Imaginea pentru Wallet
-                    contentDescription = "Wallet",
+                    painter = painterResource(id = R.drawable.settings), // Imaginea pentru Settings
+                    contentDescription = "Settings",
                     tint = Color.LightGray, // Deschis pentru celelalte butoane
                     modifier = Modifier.fillMaxSize()
                 )

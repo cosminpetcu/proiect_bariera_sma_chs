@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
             var currentScreen by remember { mutableStateOf("signUp") }
             val auth = FirebaseAuth.getInstance()
             val currentUser = auth.currentUser
+            var accessPoints by remember { mutableStateOf(listOf<AccessPoint>()) }
 
             // Verificăm dacă utilizatorul este deja autentificat
             if (currentUser != null) {
@@ -57,27 +58,33 @@ class MainActivity : ComponentActivity() {
                 "home" -> HomePage(
                     onNavigateToMapPage = { currentScreen = "map" },
                     onNavigateToSwitchPage = { currentScreen = "switch" },
-                    onNavigateToWalletPage = { currentScreen = "wallet" },
-                    onLogout = {
-                        // Deconectează utilizatorul și redirecționează-l pe pagina de logare
-                        auth.signOut()
-                        currentScreen = "signUp"
-                    }
+                    onNavigateToSettingsPage = { currentScreen = "settings" },
+                    onAddAccessPoint = { point -> accessPoints = accessPoints + point },
+                    accessPoints = accessPoints
                 )
                 "map" -> MapPage(
                     onNavigateBack = { currentScreen = "home" },
                     onNavigateToSwitchPage = { currentScreen = "switch" },
-                    onNavigateToWalletPage = { currentScreen = "wallet" }
+                    onNavigateToSettingsPage = { currentScreen = "settings" }
                 )
                 "switch" -> SwitchPage(
                     onNavigateBack = { currentScreen = "home" },
                     onNavigateToMapPage = { currentScreen = "map" },
-                    onNavigateToWalletPage = { currentScreen = "wallet" }
+                    onNavigateToSettingsPage = { currentScreen = "settings" }
                 )
-                "wallet" -> WalletPage(
+                "settings" -> SettingsPage(
                     onNavigateBack = { currentScreen = "home" },
                     onNavigateToMapPage = { currentScreen = "map" },
-                    onNavigateToSwitchPage = { currentScreen = "switch" }
+                    onNavigateToSwitchPage = { currentScreen = "switch" },
+                    accessPoints = accessPoints,
+                    onLogout = {
+                        // Deconectează utilizatorul și redirecționează-l pe pagina de logare
+                        auth.signOut()
+                        currentScreen = "signUp"
+                    },
+                    onDeleteAccessPoint = { accessPoint ->
+                        accessPoints = accessPoints.filter { it != accessPoint }
+                    }
                 )
             }
         }

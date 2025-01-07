@@ -12,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.maps.android.compose.*
 import com.google.android.gms.maps.model.LatLng
-import com.example.smaproject_1.getCurrentLocation
 import com.google.android.gms.maps.model.CameraPosition
 
 @SuppressLint("MissingPermission")
@@ -20,7 +19,7 @@ import com.google.android.gms.maps.model.CameraPosition
 fun MapPage(
     onNavigateBack: () -> Unit,
     onNavigateToSwitchPage: () -> Unit,
-    onNavigateToWalletPage: () -> Unit
+    onNavigateToSettingsPage: () -> Unit
 ) {
     val context = LocalContext.current
     val cameraPositionState = rememberCameraPositionState()
@@ -94,14 +93,15 @@ fun MapPage(
                         modifier = Modifier.fillMaxSize()
                     )
                 }
+                // Buton Settings
                 IconButton(
-                    onClick = { onNavigateToWalletPage() },
+                    onClick = { onNavigateToSettingsPage() },
                     modifier = Modifier.size(50.dp)
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.wallet),
-                        contentDescription = "Wallet",
-                        tint = Color.LightGray,
+                        painter = painterResource(id = R.drawable.settings), // Imaginea pentru Settings
+                        contentDescription = "Settings",
+                        tint = Color.LightGray, // Deschis pentru celelalte butoane
                         modifier = Modifier.fillMaxSize()
                     )
                 }
