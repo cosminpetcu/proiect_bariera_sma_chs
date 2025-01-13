@@ -3,7 +3,6 @@ package com.example.smaproject_1
 import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
@@ -274,7 +273,16 @@ fun HomePage(
                 confirmButton = {
                     Button(
                         onClick = {
-                            onAddAccessPoint(AccessPoint(locationName, signalCode, address))
+                            val uniqueId = UUID.randomUUID().toString() // Generate a unique ID
+                            onAddAccessPoint(
+                                AccessPoint(
+                                    pointId = uniqueId,
+                                    userId = auth.currentUser?.uid.orEmpty(),
+                                    name = locationName,
+                                    code = signalCode,
+                                    address = address
+                                )
+                            )
                             showDialog = false
                             locationName = ""
                             signalCode = ""
@@ -342,6 +350,3 @@ private fun sendSignalToESP32(socket: BluetoothSocket?, message: String) {
 private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
-
-// Data class for access points
-data class AccessPoint(val name: String, val code: String, val address: String)

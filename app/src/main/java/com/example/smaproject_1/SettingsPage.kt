@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsPage(
@@ -122,6 +123,9 @@ fun SettingsPage(
 
 @Composable
 fun AccessPointSettings(accessPoint: AccessPoint, onDeleteAccessPoint: (AccessPoint) -> Unit) {
+
+    val scope = rememberCoroutineScope()
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -164,11 +168,12 @@ fun AccessPointSettings(accessPoint: AccessPoint, onDeleteAccessPoint: (AccessPo
 
             //Delete button
             Button(
-                onClick = { onDeleteAccessPoint(accessPoint) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                onClick = {
+                    scope.launch {
+                        onDeleteAccessPoint(accessPoint)
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
             ) {
                 Text("Delete", color = Color.White)
             }

@@ -57,6 +57,10 @@ dependencies {
     implementation ("androidx.compose.ui:ui-tooling-preview:1.5.0")
     implementation ("androidx.compose.ui:ui-graphics:1.5.0")
 
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
     // Google Maps dependencies
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.maps.android:maps-compose:2.14.0")
